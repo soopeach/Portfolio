@@ -7,7 +7,7 @@ export default function Hero(){
             <div
                 className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
                 <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-                    안녕하세요 수피치입니다!
+                    탐구하며 개발하는 개발자 수피치입니다!
                     <br className="hidden lg:inline-block"/>잘 부탁드립니다!
                 </h1>
                 <p className="mb-8 leading-relaxed">
@@ -15,11 +15,22 @@ export default function Hero(){
                 </p>
                 <div className="flex justify-center">
                     <Link href="https://soopeach.tistory.com/">
-                        <a className="btn-project">
-                            블로그
+                        <a className="btn-project mr-5">
+                            블로그 보러가기
                         </a>
                     </Link>
 
+                    <Link href="/projects">
+                        <a className="btn-project mr-5">
+                            프로젝트 보러가기
+                        </a>
+                    </Link>
+
+                    <Link href="https://soopeach.tistory.com/">
+                        <a className="btn-project mr-5">
+                            깃허브 보러가기
+                        </a>
+                    </Link>
                 </div>
             </div>
             <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
