@@ -24,8 +24,8 @@ export default function Header(){
                     <Link href="https://soopeach.tistory.com/">
                         <a className="mr-5 hover:text-gray-900">블로그</a>
                     </Link>
+                    <DarkModeToggleButton/>
                 </nav>
-                <DarkModeToggleButton/>
             </div>
             </header>
         </>
