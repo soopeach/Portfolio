@@ -57,10 +57,6 @@ export async function getServerSideProps() {
         aProject.properties.Name.title[0].plain_text
     ))
 
-
-
-
-
     return {
         props: {projects}, // will be passed to the page component as props
     }
