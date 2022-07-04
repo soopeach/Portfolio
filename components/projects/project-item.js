@@ -9,25 +9,61 @@ export default function ProjectItem({data}){
     const tags = data.properties.Tags.multi_select
     const start = data.properties.WorkPeriod.date.start
     const end = data.properties.WorkPeriod.date.end
+    const isProcessing = data.properties.진행여부.status.name
 
     const calculatedPeriod = (start, end) => {
-        const startDateStringArray = start.split('-');
-        const endDateStringArray = end.split('-');
 
-        var startDate = new Date(startDateStringArray[0], startDateStringArray[1], startDateStringArray[2]);
-        var endDate = new Date(endDateStringArray[0], endDateStringArray[1], endDateStringArray[2]);
+        if (end != null){
+            const startDateStringArray = start.split('-');
+            const endDateStringArray = end.split('-');
 
-        console.log(`startDate: ${startDate}`)
-        console.log(`endDate: ${endDate}`)
+            var startDate = new Date(startDateStringArray[0], startDateStringArray[1], startDateStringArray[2]);
+            var endDate = new Date(endDateStringArray[0], endDateStringArray[1], endDateStringArray[2]);
 
-        const diffInMs = Math.abs(endDate - startDate);
-        const result = diffInMs / (1000 * 60 * 60 * 24);
+            console.log(`startDate: ${startDate}`)
+            console.log(`endDate: ${endDate}`)
 
-        console.log(`기간 : ${result}`)
-        return result;
+            const diffInMs = Math.abs(endDate - startDate);
+            const result = `${diffInMs / (1000 * 60 * 60 * 24)}일`;
+
+            console.log(`기간 : ${result}`)
+            return result;
+        } else { return "진행중"; }
+
     };
 
-    return(
+    const process= (isProcessing) => {
+
+        if (isProcessing === "In progress"){
+            return <span className="px-2 py-1 mr-2 rounded-md bg-sky-200 dark:bg-sky-700 w-30"> {isProcessing} </span>
+        } else if (isProcessing === "Done"){
+            return <span className="px-2 py-1 mr-2 rounded-md bg-green-300 dark:bg-green-700 w-30"> {isProcessing} </span>
+        } else {
+            return <span className="px-2 py-1 mr-2 rounded-md bg-slate-400 dark:bg-slate-600 w-30"> {isProcessing} </span>
+        }
+
+    }
+
+    const setTag = (aTag) => {
+
+        // purple / green / blue / red / gray
+        if(aTag.color === "purple"){
+            return <h1 className="px-2 py-1 mr-2 rounded-md bg-purple-300 dark:bg-purple-700 w-30" key={aTag.id}>{aTag.name}</h1>
+        } else if (aTag.color === "green"){
+            return <h1 className="px-2 py-1 mr-2 rounded-md bg-green-300 dark:bg-green-700 w-30" key={aTag.id}>{aTag.name}</h1>
+        } else if (aTag.color === "blue"){
+            return <h1 className="px-2 py-1 mr-2 rounded-md bg-sky-200 dark:bg-sky-700 w-30" key={aTag.id}>{aTag.name}</h1>
+        } else if (aTag.color === "red"){
+            return <h1 className="px-2 py-1 mr-2 rounded-md bg-red-400 dark:bg-red-700 w-30" key={aTag.id}>{aTag.name}</h1>
+        } else if (aTag.color === "pink"){
+            return <h1 className="px-2 py-1 mr-2 rounded-md bg-pink-400 dark:bg-pink-700 w-30" key={aTag.id}>{aTag.name}</h1>
+        } else if(aTag.color === "gray"){
+            return <h1 className="px-2 py-1 mr-2 rounded-md bg-gray-300 dark:bg-gray-700 w-30" key={aTag.id}>{aTag.name}</h1>
+        }
+
+
+    }
+    return (
         <div className="project-card">
             <Image
                 className="rounded-t-xl"
@@ -44,17 +80,18 @@ export default function ProjectItem({data}){
                 <h1 className="text-2xl font-bold">{title}</h1>
                 <h3 className="mt-4 text-xl">{description}</h3>
                 <a href={github}>프로젝트 깃허브 바로가기</a>
+                <p>
+                    진행여부 : {process(isProcessing)}
+                </p>
                 <p className="my-1 ">
-                    작업기간 : {start} ~ {end} ({calculatedPeriod(start, end)}일)
+                    작업기간 : {start} ~ {end} ({calculatedPeriod(start, end)})
                 </p>
                 <div className="flex items-start mt-2">
                     {tags.map((aTag) => (
-                        <h1 className="px-2 py-1 mr-2 rounded-md bg-sky-200 dark:bg-sky-700 w-30" key={aTag.id}>{aTag.name}</h1>
+                        setTag(aTag)
                     ))}
                 </div>
-
             </div>
-
         </div>
      )
 }
