@@ -10,6 +10,7 @@ export default function ProjectItem({data}){
     const start = data.properties.WorkPeriod.date.start
     const end = data.properties.WorkPeriod.date.end
     const isProcessing = data.properties.진행여부.status.name
+    const notionDetailUrl = data.properties.SharedUrl.url
 
     const calculatedPeriod = (start, end) => {
 
@@ -78,8 +79,9 @@ export default function ProjectItem({data}){
 
             <div className="p-4 flex flex-col">
                 <h1 className="text-2xl font-bold">{title}</h1>
-                <h3 className="mt-4 text-xl">{description}</h3>
-                <a href={github}>프로젝트 깃허브 바로가기</a>
+                <h2 className="mt-4 text-xl">{description}</h2>
+                <a href={github} className="text-lg">깃허브 바로가기</a>
+                <a href={notionDetailUrl} className="text-lg">노션 상세페이지 바로가기</a>
                 <p>
                     진행여부 : {process(isProcessing)}
                 </p>
